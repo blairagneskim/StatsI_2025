@@ -155,13 +155,15 @@ prop.table(table(df_s$genre,
                  df_s$critics_rating))
 
 # - manual check for 'comedy' genre: which values do we use? 
-# [Answer here]
+
+# We use the frequency count for "Comedy" in each critics_rating category 
+# divided by the total number of observations in the table.
 
 # Interpretation:
 # Estimated probability of two specific values co-occurring.
 
 # Probability of a Comedy AND "Rotten"?
-
+63/444
 # Conditional probability 1.1
 # Probability of "Rotten" given Comedy
 ?prop.table
@@ -172,7 +174,8 @@ prop.table(table(df_s$genre,           # rows
            margin = 1) # over rows
 
 # - manual check for 'comedy' AND 'rotten': which values do we use? 
-# [Answer here]
+# 
+64/87
 
 # Add marginal distributions (conditional on rows)
 addmargins(prop.table(table(df_s$genre, 
@@ -200,13 +203,13 @@ round(0.72413793, 2)
 # prop.table(x, margin = 2): proportions across columns (conditional on column)
 
 # What do we use here then? 
-# Over [answer] --> Genre conditional on [answer]
+# Over columns --> Genre conditional on critics_rating
 addmargins(prop.table(table(df_s$genre,           #row
                             df_s$critics_rating), # column
                       margin = 2)) 
                       
 # - manual check for 'comedy' given 'rotten' : which values do we use?                       
-# [Answer here] 
+63/444
 
 # ==========================================================
 # Visualizing conditional distributions with a bar plot
@@ -234,8 +237,8 @@ dev.off()
 
 # Test whether genre and critics rating are independent.
 # State the hypotheses: 
-# H0 (null): 
-# H1 (alt):  
+# H0 (null): Genre and critics rating are independent.
+# H1 (alt): Genre and critics rating are not independent.
 
 # Run Chi-square test
 chi <- chisq.test(df_s$genre, df_s$critics_rating)
@@ -264,7 +267,8 @@ chi$residuals
 # Question: Is there an association between education and income?
 
 # Load dataset
-df <- read.csv("fictional_data.csv")
+df <- read.csv("fictional_data.csv") 
+
 
 # Quick scatter plot
 plot(df$income,df$edu)
