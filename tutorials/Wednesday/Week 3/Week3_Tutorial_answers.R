@@ -69,8 +69,12 @@ mean(df$income)
 var(df$income) 
 sd(df$income)
 <<<<<<< Updated upstream:tutorials/Wednesday/Week 3/Week3_Tutorial_answers.R
+<<<<<<< Updated upstream:tutorials/Wednesday/Week 3/Week3_Tutorial_answers.R
 se_income <- sd(df$income)/sqrt(length(df$income)) # standard error
 
+=======
+#  <- sd(df$income)/sqrt(length(df$income)) # What is this? =standard error
+>>>>>>> Stashed changes:tutorials/Wednesday/Week 3/Week3_Tutorial.R
 =======
 #  <- sd(df$income)/sqrt(length(df$income)) # What is this? =standard error
 >>>>>>> Stashed changes:tutorials/Wednesday/Week 3/Week3_Tutorial.R
@@ -303,12 +307,20 @@ ggplot(df, aes(x = factor(cap), y = income, fill = factor(cap))) +
 # Question:
 # Is the average monthly income in our sample
 <<<<<<< Updated upstream:tutorials/Wednesday/Week 3/Week3_Tutorial_answers.R
+<<<<<<< Updated upstream:tutorials/Wednesday/Week 3/Week3_Tutorial_answers.R
 # different from the population mean in Ireland (from Google: 3034)?
 
 # Hypotheses: one or two-sided? 
 # Answer: two-sided
 #   H0: Average monthly income is 3034 (mu is not equal to 3034)
 #   H1: Average monthly income is not 3034 (mu = 3034)
+=======
+# different from the population mean in Ireland? (3034)
+
+# Hypotheses: two-sided?
+#   H0: average monthly income equal to 3034
+#   H1: average monthly income is different than 3034
+>>>>>>> Stashed changes:tutorials/Wednesday/Week 3/Week3_Tutorial.R
 =======
 # different from the population mean in Ireland? (3034)
 
