@@ -66,6 +66,7 @@ median_income <- median(df$income)
 var_income <- var(df$income)
 sd_income <- sd(df$income)
 
+#df정보 알고 싶을 때 : summary(df)
 
 # Education
 mean_edu <- mean(df$edu)

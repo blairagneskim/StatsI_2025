@@ -68,8 +68,12 @@ summary(df)
 mean(df$income) 
 var(df$income) 
 sd(df$income)
+<<<<<<< Updated upstream:tutorials/Wednesday/Week 3/Week3_Tutorial_answers.R
 se_income <- sd(df$income)/sqrt(length(df$income)) # standard error
 
+=======
+#  <- sd(df$income)/sqrt(length(df$income)) # What is this? =standard error
+>>>>>>> Stashed changes:tutorials/Wednesday/Week 3/Week3_Tutorial.R
 
 # -------------------------------#
 # 3. Visualizing the Distribution
@@ -77,7 +81,7 @@ se_income <- sd(df$income)/sqrt(length(df$income)) # standard error
 
 # Histogram of income
 hist(df$income,
-     #breaks = 20,
+     breaks = 20,
      main = "Monthly net income",
      xlab = "Euro")
 
@@ -96,6 +100,7 @@ plot(density(df$income),
 mean(df$income)
 
 # Standard error estimates the SD of the sampling distribution
+se_income <- sd(df$income) / sqrt(length(df$income))
 se_income
 
 # Why do we need the standard error?
@@ -268,6 +273,7 @@ ggplot(df, aes(x = income, y = edu, color = factor(cap))) +
        title = "The relationship between Education and Income") +
   theme_minimal() 
 
+#lecturer highly recommend ggplot!!
 
 # Boxplot
 ggplot(df, aes(x = factor(cap), y = income, fill = factor(cap))) +
@@ -296,12 +302,20 @@ ggplot(df, aes(x = factor(cap), y = income, fill = factor(cap))) +
 # ---------------------------------------------#
 # Question:
 # Is the average monthly income in our sample
+<<<<<<< Updated upstream:tutorials/Wednesday/Week 3/Week3_Tutorial_answers.R
 # different from the population mean in Ireland (from Google: 3034)?
 
 # Hypotheses: one or two-sided? 
 # Answer: two-sided
 #   H0: Average monthly income is 3034 (mu is not equal to 3034)
 #   H1: Average monthly income is not 3034 (mu = 3034)
+=======
+# different from the population mean in Ireland? (3034)
+
+# Hypotheses: two-sided?
+#   H0: average monthly income equal to 3034
+#   H1: average monthly income is different than 3034
+>>>>>>> Stashed changes:tutorials/Wednesday/Week 3/Week3_Tutorial.R
 
 # The t-test compares the sample mean to the hypothesized value mu0,
 # accounting for sample size and variability.
