@@ -1,5 +1,5 @@
 ###############################################################################
-# Title:        Stats I - Week 2
+# Title:        Stats I - Week 2 (with answers)
 # Description:  Hypothesis testing, experiments, difference in means
 # Author:       Elena Karagianni
 # R version:    R 4.4.0
@@ -30,7 +30,7 @@ pkgTest <- function(pkg){
 }
 
 # Load any necessary packages
-lapply(c("readr", "ggplot2", "dplyr", "viridis", "foreign"),  pkgTest)
+lapply(c("readr", "ggplot2", "dplyr", "viridis", "foreign", "haven"),  pkgTest)
 
 # Get working directory
 getwd()
@@ -68,7 +68,7 @@ summary(df)
 mean(df$income) 
 var(df$income) 
 sd(df$income)
-#  <- sd(df$income)/sqrt(length(df$income)) # What is this? 
+se_income <- sd(df$income)/sqrt(length(df$income)) # standard error
 
 
 # -------------------------------#
@@ -241,7 +241,7 @@ plot(df$income,
      col=df$cap+1,
      xlab="Monthly net income (in Euro)",
      ylab="University level education (in years)",
-     main="The Relationship between education and income")
+     main="The relationship between education and income")
 # Add legend
 legend(1000, 8, # x and y position of legend
        legend=c("Non capital", "Capital"),
@@ -265,7 +265,7 @@ ggplot(df, aes(x = income, y = edu, color = factor(cap))) +
                      name = "Residence") +
   labs(x = "Monthly net income (in Euro)",
        y = "University level education (in years)",
-       title = "The Relationship between Education and Income") +
+       title = "The relationship between Education and Income") +
   theme_minimal() 
 
 
@@ -296,15 +296,15 @@ ggplot(df, aes(x = factor(cap), y = income, fill = factor(cap))) +
 # ---------------------------------------------#
 # Question:
 # Is the average monthly income in our sample
-# different from the population mean in Ireland?
+# different from the population mean in Ireland (from Google: 3034)?
 
-# Hypotheses: one or two-sided?
-#   H0:
-#   H1: 
+# Hypotheses: one or two-sided? 
+# Answer: two-sided
+#   H0: Average monthly income is 3034 (mu is not equal to 3034)
+#   H1: Average monthly income is not 3034 (mu = 3034)
 
 # The t-test compares the sample mean to the hypothesized value mu0,
 # accounting for sample size and variability.
-
 
 # Two-sided test: is the mean different (higher OR lower)?
 t.test(df$income, mu = 3034)
@@ -316,8 +316,8 @@ t.test(df$income, mu = 3034)
 t.test(df$income, mu = 3034, alternative = "less")
 
 # NOTE:
-# - p-value < 0.05 → reject H0 (mean likely differs from 3034)
-# - p-value ≥ 0.05 → do not reject H0 (sample mean compatible with 3034)
+# - p-value < 0.05 : reject H0 (mean likely differs from 3034)
+# - p-value ≥ 0.05 : do not reject H0 (sample mean compatible with 3034)
 
 # The t.test() output also provides a confidence interval by default.
 # We can change the confidence level easily:
@@ -338,8 +338,8 @@ t.test(df$income, conf.level = 0.99, alternative = "two.sided")
 #   incomes than those living elsewhere?
 #
 # Hypotheses: one or two-sided?
-#   H0: 
-#   H1: 
+#   H0: People living in a capital do not earn a different income than the rest. 
+#   H1: People living in a capital earn a different income than the rest. 
 
 # The two-sample t-test compares the means of two independent groups.
 # By default, t.test() uses Welch’s t-test, which does NOT assume equal variances.
@@ -359,13 +359,14 @@ mean(df[df$cap == 0, ]$income)
 # Two-sample t-test (Welch)
 t.test(df$income ~ df$cap, alternative = "two.sided")
 
-# One-sided test: is income LOWER outside the capital (i.e., capital earns MORE)?
-# (Here we test if mean_noncapital < mean_capital)
+# On average, do people earn more in the capital
+# compared to people who do not reside in the capital?
+# One-sided test: 
 t.test(df$income ~ df$cap, alternative = "less")
 
 # Interpretation:
-# - If p-value < 0.05 → reject H0 (means differ significantly)
-# - If alternative = "less" and p < 0.05 → non-capital income is significantly lower
+# - If p-value < 0.05 : reject H0 (means differ significantly)
+# - If alternative = "less" and p < 0.05 : non-capital income is significantly lower
 #   than capital income.
 
 # On average, do people earn more in the capital
@@ -381,37 +382,38 @@ t.test(df$income ~ df$cap, alternative = "less")
 
 # Why not load("polity.dta")?
 # - load() is for .RData/.rda (R’s serialized objects), not Stata files.
-# - Use haven::read_dta() (or foreign::read.dta()) for .dta files.
-polity <- read.dta("polity.dta")
+# - Use haven::read_dta() for .dta files.
+data <- read.dta("polity.dta")
 
 # Quick look
-head(polity)
-table(polity$region)
+head(data)
+glimpse(data)
+table(data$region)
 
 # Variable of interest: fh_polity2 - numeric Polity score (0-10)
 
 # Subset the two regions of interest:
-west <- 
-east <- 
+west <- data$fh_polity2[data$region == "Western Europe and North America"]
+east <- data$fh_polity2[data$region == "Eastern Europe"]
   
 # Quick descriptive statistics
-mean_west <- 
-mean_east <- 
-n_west    <- 
-n_east    <- 
-sd_west   <- 
-sd_east   <- 
+mean_west <- mean(west, na.rm = TRUE)
+mean_east <- mean(east, na.rm = TRUE)
+n_west    <- sum(!is.na(west))
+n_east    <- sum(!is.na(east))
+sd_west   <- sd(west, na.rm = TRUE)
+sd_east   <- sd(east, na.rm = TRUE)
 
-print(mean_west, mean_east)
-print(n_west, n_east)
-print(sd_west, sd_east)
+mean_west; mean_east
+n_west; n_east
+sd_west; sd_east
 
 # Calculate the SEs
 # SE = sample SD / sqrt(n)
-se_west <- 
-se_east <-
+se_west <- sd_west / sqrt(n_west)
+se_east <- sd_east / sqrt(n_east)
 
-print(se_west, se_east)
+se_west; se_east
 
 # -------------------------------------#
 #  Analytical CI (Normal Approximation)
@@ -444,4 +446,19 @@ t_test_res
 ci_t <- t_test_res$conf.int[1:2]
 ci_t
 
-#Conclusion?
+# Conclusion?
+
+# Example answer:
+# Our analysis shows that countries in Western Europe & North America
+# have a much higher average Polity score (mean = 9.97) than countries
+# in Eastern Europe (mean = 6.59). The estimated difference in means is
+# about 3.38 points on the 0–10 democracy scale.
+
+# The 95% confidence interval for this difference (Welch’s t-test) is
+# [2.10 , 4.66], which does not include 0. This means we can reject the
+# null hypothesis of no difference between the two regions at the 5%
+# significance level (p = 0.000012).
+
+# Substantively, Western Europe & North America seem to
+# score on average between about 2 and 5 points higher on the Polity
+# democracy index compared to Eastern Europe.
