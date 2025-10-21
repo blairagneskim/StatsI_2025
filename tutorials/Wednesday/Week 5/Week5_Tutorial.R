@@ -188,7 +188,7 @@ abline(a = 976.16, b = 250.64, col = "darkgreen", lwd = 2) # Use the intercept/s
 
 # What is the prediction equation?
 summary(model)
-# [Answer here]
+# \hat_income = 976.15 + 250.64 * educ 
 
 # Make predictions for first observation in df
 head(df)
