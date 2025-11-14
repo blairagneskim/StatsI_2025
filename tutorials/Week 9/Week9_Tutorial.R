@@ -130,7 +130,7 @@ plot(jitter(df_s$edlvdie, 2), jitter(df_s$euftf_re, 2))
 # -----------------------------------------------------------
 # Simple model: socio-demographic variables only
 # -----------------------------------------------------------
-model_base <- # your answer here
+model_base <- lm(euftf_re ~ factor(gndr) + agea + factor(brncntr), data = df_s)
 summary(model_base)
 
 # -----------------------------------------------------------
@@ -139,39 +139,39 @@ summary(model_base)
 # -----------------------------------------------------------
 
 # Continuous measure of education
-model1_cont <- # your answer here
+model1_cont <- lm(euftf_re ~ eduyrs, df_s)
 summary(model1_cont)
 
 # Categorical measure of education
-model1_cat <- # your answer here
+model1_cat <- lm(euftf_re ~ edu_cat, df_s)
 summary(model1_cat)
 
 # Change reference category and re-estimate
 plot(df_s$edu_cat)
 df_s$edu_cat <- relevel(df_s$edu_cat, ref = 2)
 
-model1_cat <- # your answer here
+model1_cat <- lm(euftf_re ~ edu_cat, df_s)
 summary(model1_cat)
 
 # -----------------------------------------------------------
 # (2) Hypothesis 2: Income and Euroscepticism
 # Expectation: Higher income --> Lower Euroscepticism
 # -----------------------------------------------------------
-model2 <- # your answer here
+model2 <- lm(euftf_re ~ hinctnta, df_s)
 summary(model2)
 
 # -----------------------------------------------------------
 # (3) Hypothesis 3: Political Trust and Euroscepticism
 # Expectation: Higher trust --> Lower Euroscepticism
 # -----------------------------------------------------------
-model3 <- # your answer here
+model3 <- lm(euftf_re ~ trstplt, df_s)
 summary(model3)
 
 # -----------------------------------------------------------
 # (4) Hypothesis 4: Immigration Attitudes and Euroscepticism
 # Expectation: More positive view of immigrants --> Lower Euroscepticism
 # -----------------------------------------------------------
-model4 <- # your answer here
+model4 <- lm(euftf_re ~ imwbcnt, df_s)
 summary(model4)
 
 # -----------------------------------------------------------
@@ -179,23 +179,24 @@ summary(model4)
 # -----------------------------------------------------------
 
 # Education only
-model1 <- # your answer here
+model1 <- lm(euftf_re ~ edu_cat, df_s)
 summary(model1)
 
 # Add economic dimension
-model_eco <- # your answer here
+model_eco <- lm(euftf_re ~ edu_cat + hinctnta, df_s)
 summary(model_eco)
 
 # Add political dimension
-model_pol <- # your answer here
+model_pol <- lm(euftf_re ~ edu_cat + hinctnta + trstplt, df_s)
 summary(model_pol)
 
 # Add cultural dimension
-model_cul <- # your answer here
+model_cul <- lm(euftf_re ~ edu_cat + hinctnta + trstplt + imwbcnt, df_s)
 summary(model_cul)
 
 # Add socio-demographic controls
-model_final <- # your answer here
+model_final <- lm(euftf_re ~ edu_cat + hinctnta + trstplt + imwbcnt +
+                    factor(gndr) + agea + factor(brncntr),df_s)
 summary(model_final)
 
 # Get Latex table
