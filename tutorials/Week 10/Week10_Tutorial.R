@@ -175,7 +175,7 @@ model1 <- lm(euftf_re ~ eduyrs, df)
 summary(model1)
 
 # What is the prediction equation?
-# Your answer here
+# Eurscepticism = 4.85 - 0.07178 * Education
 
 # Categorical independent variable (manually)
 
@@ -252,6 +252,7 @@ model4 <- lm(euftf_re ~ imwbcnt,data=df)
 summary(model4)
 
 # What is the prediction equation?
+# ES = 6.6284 - 0.3592 * imwbcnt
 # Which interpretations can we make?
 
 # -----------------------------------------------------------
